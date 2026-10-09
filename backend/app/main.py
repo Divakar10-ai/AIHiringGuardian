@@ -12,6 +12,25 @@ import os
 RENDER_EXTERNAL_URL = os.getenv("RENDER_EXTERNAL_URL")
 servers = [{"url": RENDER_EXTERNAL_URL, "description": "Production"}] if RENDER_EXTERNAL_URL else []
 
+from app.core.config import settings
+from app.database.core import engine, Base, SessionLocal
+
+Base.metadata.create_all(bind=engine)
+
+# Ensure default admin user exists
+from app.models.all import User
+from app.core.security import get_password_hash
+with SessionLocal() as db:
+    if not db.query(User).filter(User.email == "admin@aihiringguardian.demo").first():
+        admin_user = User(
+            name="System Admin",
+            email="admin@aihiringguardian.demo",
+            password_hash=get_password_hash("password123"),
+            role="ADMIN"
+        )
+        db.add(admin_user)
+        db.commit()
+
 app = FastAPI(
     title="AI Hiring Guardian API",
     description="Backend for AI Hiring Governance & Compliance OS",
