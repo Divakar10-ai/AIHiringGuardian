@@ -7,10 +7,16 @@ from app.api.audit import router as audit_router
 from app.api.candidates import router as candidates_router
 from app.core.config import settings
 
+import os
+
+RENDER_EXTERNAL_URL = os.getenv("RENDER_EXTERNAL_URL")
+servers = [{"url": RENDER_EXTERNAL_URL, "description": "Production"}] if RENDER_EXTERNAL_URL else []
+
 app = FastAPI(
     title="AI Hiring Guardian API",
     description="Backend for AI Hiring Governance & Compliance OS",
     version="1.0.0",
+    servers=servers,
 )
 
 origins = [origin.strip() for origin in settings.CORS_ORIGINS.split(",")]
