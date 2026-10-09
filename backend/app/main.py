@@ -73,21 +73,4 @@ from app.core.deps import get_db
 from app.models.all import User
 from sqlalchemy import text
 
-@app.get("/debug-db")
-def debug_db(db: Session = Depends(get_db)):
-    try:
-        db.execute(text("SELECT 1"))
-        user = db.query(User).first()
-        return {"status": "success", "user_count": 1 if user else 0, "dialect": engine.dialect.name}
-    except Exception as e:
-        return {"status": "error", "type": str(type(e)), "error": str(e), "traceback": traceback.format_exc()}
 
-from app.core.security import get_password_hash, verify_password
-@app.get("/debug-auth")
-def debug_auth():
-    try:
-        h = get_password_hash("test")
-        v = verify_password("test", h)
-        return {"status": "success", "verify": v}
-    except Exception as e:
-        return {"status": "error", "type": str(type(e)), "error": str(e), "traceback": traceback.format_exc()}
