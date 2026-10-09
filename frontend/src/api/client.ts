@@ -28,7 +28,9 @@ export async function apiClient<T = any>(
     headers.set('Content-Type', 'application/json');
   }
 
-  const url = `${BASE_URL}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
+  const normalizedBase = BASE_URL.endsWith('/') ? BASE_URL.slice(0, -1) : BASE_URL;
+  const normalizedEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+  const url = `${normalizedBase}${normalizedEndpoint}`;
 
   const response = await fetch(url, {
     ...options,
