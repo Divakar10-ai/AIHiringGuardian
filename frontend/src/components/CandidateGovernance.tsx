@@ -6,6 +6,7 @@ import {
   Clock, Search, Briefcase, Filter, X, Play, CheckCircle2, UserCircle2, Activity, ShieldAlert, Plus, ArrowUpDown, ChevronRight, Users
 } from 'lucide-react';
 import { AddCandidate } from './AddCandidate';
+import workplaceImg from '../assets/images/candidate-workplace.jpg';
 
 export const CandidateGovernance = ({ onAction }: { onAction?: (a: string) => void }) => {
 
@@ -312,7 +313,7 @@ export const CandidateGovernance = ({ onAction }: { onAction?: (a: string) => vo
       <div className="bg-white text-slate-900 pt-10 pb-12 px-10 relative overflow-hidden shrink-0 h-48 border-b border-slate-200">
         <div className="absolute inset-0 z-0">
           <img 
-            src="/src/assets/images/candidate-workplace.jpg" 
+            src={workplaceImg}
             alt="Candidate Workspace" 
             className="w-full h-full object-cover"
           />

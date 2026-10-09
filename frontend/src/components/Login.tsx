@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Eye, EyeOff, Loader2, Key, Mail, Building2, UserCircle } from 'lucide-react';
 import { AppLogo } from './AppLogo';
+import workplaceImg from '../assets/images/candidate-workplace.jpg';
 import { useAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 
@@ -82,7 +83,7 @@ export const Login = ({ onLoginSuccess }: { onLoginSuccess: () => void }) => {
       <div className="hidden lg:flex w-1/2 relative bg-white flex-col justify-between overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
-            src="/src/assets/images/candidate-workplace.jpg" 
+            src={workplaceImg} 
             alt="AI Hiring Guardian Workspace" 
             className="w-full h-full object-cover"
           />
