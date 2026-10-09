@@ -46,3 +46,29 @@ app.include_router(monitoring_router, prefix="/api/v1/monitoring", tags=["Monito
 @app.get("/health")
 def health_check():
     return {"status": "ok", "message": "AI Hiring Guardian API is running"}
+
+import traceback
+from sqlalchemy.orm import Session
+from fastapi import Depends
+from app.core.deps import get_db
+from app.models.all import User
+from sqlalchemy import text
+
+@app.get("/debug-db")
+def debug_db(db: Session = Depends(get_db)):
+    try:
+        db.execute(text("SELECT 1"))
+        user = db.query(User).first()
+        return {"status": "success", "user_count": 1 if user else 0}
+    except Exception as e:
+        return {"status": "error", "type": str(type(e)), "error": str(e), "traceback": traceback.format_exc()}
+
+from app.core.security import get_password_hash, verify_password
+@app.get("/debug-auth")
+def debug_auth():
+    try:
+        h = get_password_hash("test")
+        v = verify_password("test", h)
+        return {"status": "success", "verify": v}
+    except Exception as e:
+        return {"status": "error", "type": str(type(e)), "error": str(e), "traceback": traceback.format_exc()}
