@@ -78,7 +78,7 @@ def debug_db(db: Session = Depends(get_db)):
     try:
         db.execute(text("SELECT 1"))
         user = db.query(User).first()
-        return {"status": "success", "user_count": 1 if user else 0}
+        return {"status": "success", "user_count": 1 if user else 0, "dialect": engine.dialect.name}
     except Exception as e:
         return {"status": "error", "type": str(type(e)), "error": str(e), "traceback": traceback.format_exc()}
 

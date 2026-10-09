@@ -54,7 +54,7 @@ def get_audit_logs(
             "candidate_id": log.candidate_id,
             "ai_tool_id": log.ai_tool_id,
             "evaluation_id": log.evaluation_id,
-            "metadata_": log.metadata_
+            "metadata_json": log.metadata_
         })
     return res
 
@@ -88,5 +88,5 @@ def get_audit_log(
         "candidate_id": log.candidate_id,
         "ai_tool_id": log.ai_tool_id,
         "evaluation_id": log.evaluation_id,
-        "metadata_": log.metadata_
+        "metadata_json": log.metadata_
     }

@@ -45,10 +45,9 @@ export async function apiClient<T = any>(
   }
 
   if (!response.ok) {
-    if (response.status === 401 || response.status === 403) {
-      // Clear token on unauthorized/forbidden
+    if (response.status === 401) {
       localStorage.removeItem('access_token');
-      // A full page reload might be harsh, but for now we'll let the AuthContext handle 401 via catching errors.
+      window.dispatchEvent(new Event('auth:unauthorized'));
     }
     
     throw new ApiError(
